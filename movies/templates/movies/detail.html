@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>DETAIL</h1>
+    <img src="https://image.tmdb.org/t/p/w200{{movie.poster_path}}" alt={{ movie.title}} width='200' height='300'>
+    <hr>
+    <h2>{{ movie.title }}</h2>
+    <p>popularity : {{ movie.popularity }}</p>
+    <p>Release_Dates : {{ movie.release_date }}</p>
+    <p>Genre : {{ movie.genre }}</p>
+    <p>Score : {{ movie.vote_average }}</p>
+    <p>{{ movie.overview }}</p>
+    <a href="{% url 'movies:index' %}">BACK</a>
+
+{% endblock content %}
+

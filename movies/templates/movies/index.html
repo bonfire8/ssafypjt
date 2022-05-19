@@ -1,5 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>movie-index</h1>
+    <h1>movie-index</h1>
+    {% for movie in movies  %}
+       <a href="{% url 'movies:detail' movie.pk%}">{{ movie.title }}</a>
+        
+        <img src="https://image.tmdb.org/t/p/w200{{movie.poster_path}}" alt={{ movie.title}} width='200' height='300'>
+        <hr>
+    {% endfor %}
 {% endblock content %}
+
