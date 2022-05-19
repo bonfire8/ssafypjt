@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Login</h1>
+    <br>
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Submit">
+    </form>
+    <a href="{% url 'movies:index' %}">BACK</a>
+{% endblock content %}
+
+{% comment %}
+id:user(admin 계정) / user1
+pw:password111 (비밀번호 동일)
+{% endcomment %}

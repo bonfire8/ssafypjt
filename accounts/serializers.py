@@ -1,17 +1,17 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
-from reviews.models import Review
+from community.models import Article
 
 class ProfileSerializer(serializers.ModelSerializer):
 
-    class ReviewSerializer(serializers.ModelSerializer):
+    class ArticleSerializer(serializers.ModelSerializer):
         
         class Meta:
-            model = Review
+            model = Article
             fields = ('pk', 'title', 'content')
 
-    like_articles = ReviewSerializer(many=True)
-    articles = ReviewSerializer(many=True)
+    like_articles = ArticleSerializer(many=True)
+    articles = ArticleSerializer(many=True)
 
     class Meta:
         model = get_user_model()
