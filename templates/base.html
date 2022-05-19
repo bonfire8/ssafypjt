@@ -16,6 +16,7 @@
         <br>
         <h3>Hello, {{ user }}</h3>
         <br>
+        <a href="{% url 'accounts:profile' user %}">내 프로필</a>
         <a href="{% url 'accounts:update' %}">회원정보수정</a>
         <form action="{% url 'accounts:logout' %}" method="POST">
           {% csrf_token %}

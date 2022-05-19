@@ -1,52 +1,52 @@
-# from rest_framework import serializers
-# from django.contrib.auth import get_user_model
+from rest_framework import serializers
+from django.contrib.auth import get_user_model
 
-# from .models import Article, Comment
+from .models import Article, Comment
 
-# User = get_user_model()
+User = get_user_model()
 
-# class CommentSerializer(serializers.ModelSerializer):
+class CommentSerializer(serializers.ModelSerializer):
     
-#     class UserSerializer(serializers.ModelSerializer):
-#         class Meta:
-#             model = User
-#             fields = ('pk', 'username')
+    class UserSerializer(serializers.ModelSerializer):
+        class Meta:
+            model = User
+            fields = ('pk', 'username')
 
-#     user = UserSerializer(read_only=True)
+    user = UserSerializer(read_only=True)
 
-#     class Meta:
-#         model = Comment
-#         fields = ('pk', 'user', 'content', 'article',)
-#         read_only_fields = ('article', )
+    class Meta:
+        model = Comment
+        fields = ('pk', 'user', 'content', 'article',)
+        read_only_fields = ('article', )
 
 
-# class ArticleSerializer(serializers.ModelSerializer):
+class ArticleSerializer(serializers.ModelSerializer):
     
-#     class UserSerializer(serializers.ModelSerializer):
-#         class Meta:
-#             model = User
-#             fields = ('pk', 'username')
+    class UserSerializer(serializers.ModelSerializer):
+        class Meta:
+            model = User
+            fields = ('pk', 'username')
 
-#     comments = CommentSerializer(many=True, read_only=True)
-#     user = UserSerializer(read_only=True)
-#     like_users = UserSerializer(read_only=True, many=True)
+    comments = CommentSerializer(many=True, read_only=True)
+    user = UserSerializer(read_only=True)
+    like_users = UserSerializer(read_only=True, many=True)
 
-#     class Meta:
-#         model = Article
-#         fields = ('pk', 'user', 'title', 'content', 'comments', 'like_users')
+    class Meta:
+        model = Article
+        fields = ('pk', 'user', 'title', 'content', 'comments', 'like_users')
 
 
-# # Article List Read
-# class ArticleListSerializer(serializers.ModelSerializer):
-#     class UserSerializer(serializers.ModelSerializer):
-#         class Meta:
-#             model = User
-#             fields = ('pk', 'username')
+# Article List Read
+class ArticleListSerializer(serializers.ModelSerializer):
+    class UserSerializer(serializers.ModelSerializer):
+        class Meta:
+            model = User
+            fields = ('pk', 'username')
 
-#     user = UserSerializer(read_only=True)
-#     # queryset annotate (views에서 채워줄것!)
-#     comment_count = serializers.IntegerField()
+    user = UserSerializer(read_only=True)
+    # queryset annotate (views에서 채워줄것!)
+    comment_count = serializers.IntegerField()
 
-#     class Meta:
-#         model = Article
-#         fields = ('pk', 'user', 'title', 'comment_count',)
+    class Meta:
+        model = Article
+        fields = ('pk', 'user', 'title', 'comment_count',)
