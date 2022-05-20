@@ -3,7 +3,15 @@
 {% block content %}
     <h1>{{ person.username }}님의 프로필</h1>
     <hr>
-
+    <div>
+        {% if user == person %}
+            <a href="{% url 'accounts:update' %}" class="text-decoration-none" style='color: black'>회원정보수정</a>
+            <form action="{% url 'accounts:delete' %}" method="POST">
+                {% csrf_token %}
+                <input type="submit" class="btn btn-secondary btn-sm" value="회원탈퇴">
+            </form>
+        {% endif %}
+    </div>
     <div>
         <div>
             팔로잉 : {{ person.followings.all|length }} / 팔로워 : {{person.followers.all|length}}

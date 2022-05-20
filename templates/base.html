@@ -1,3 +1,4 @@
+{% load bootstrap5 %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,39 +6,74 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <title>Document</title>
+    <script src="https://kit.fontawesome.com/bea522cf48.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css" integrity="sha384-eoTu3+HydHRBIjnCVwsFyCpUDZHZSFKEJD0mc3ZqSBSb6YhZzRHeiomAUWCstIWo" crossorigin="anonymous">
 </head>
+<style>
+  .navbar-toggler {
+    border-color: white;
+  }
+</style>
 <body>
-    <div class='container'>
-        <nav>
+    <div>
+        <nav class="navbar navbar-expand-md bg-color-#2F8F9D" style="navbar-color:#2F8F9D; background-color:#2F8F9D;">
+        <div class="container-fluid d-flex justify-content-between">
+          <div class='d-flex align-items-center'>
+            <i class="bi bi-tsunami fs-2 m-1.5" style="color:rgb(179, 232, 229)"></i>
+            <a href="{% url 'movies:index' %}" class="text-decoration-none fs-2 fw-bolder m-2" style='color: white'>SSAFYING</a>
+          </div>
 
-        
-        {% if request.user.is_authenticated %}
-        <br>
-        <h3>Hello, {{ user }}</h3>
-        <br>
-        <a href="{% url 'accounts:profile' user %}">내 프로필</a>
-        <a href="{% url 'accounts:update' %}">회원정보수정</a>
-        <form action="{% url 'accounts:logout' %}" method="POST">
-          {% csrf_token %}
-          <input type="submit" value="Logout">
-        </form>
-        <form action="{% url 'accounts:delete' %}" method="POST">
-          {% csrf_token %}
-          <input type="submit" value="회원탈퇴">
-        </form>
-      {% else %}
-        <a href="{% url 'accounts:login' %}">Login</a>
-        <a href="{% url 'accounts:signup' %}">Signup</a>
-      {% endif %}
+          <div class="d-flex align-items-center">
+            <button class="navbar-toggler border border-3"  type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon custom-toggler">
+                <i class="fas fa-bars" style="color:#fff; font-size:28px;"></i>
+              </span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent" style='color:white'>
+              <ul class="navbar-nav me-auto mb-2 mb-md-0 mx-2 align-items-center">
+                <li class="nav-item me-2">
+                  <a href="{% url 'movies:index' %}" class="text-decoration-none fs-5 fw-bolder" style='color: #F4FFFF'>MOVIE</a>
+                </li>
+                <li class="nav-item me-2">
+                  <a href="{% url 'community:index' %}" class="text-decoration-none fs-5 fw-bolder" style='color: #F4FFFF'>COMMUNITY</a>
+                </li>
+                {% if request.user.is_authenticated %}
+                <li class="nav-item me-2">
+                  <a href="{% url 'accounts:profile' user %}" class="text-decoration-none fs-5 fw-bolder" style='color: #F4FFFF'>PROFILE</a>
+                </li>
+                <li class="nav-item d-flex me-2">
+                  <form action="{% url 'accounts:logout' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="submit" class="btn btn-outline-light me-2 btn-sm" value="Logout">
+                  </form>
+                  {% else %}
+                  <li>
+                    <a href="{% url 'accounts:login' %}" class="text-decoration-none me-2" style='color: #F4FFFF'>Login</a>
+                    <a href="{% url 'accounts:signup' %}" class="text-decoration-none me-2" style='color: #F4FFFF'>Signup</a>
+                  </li>
+                  {% endif %}
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+
       </nav>
-      <hr>
 
-      
-        {% block content %}
+
+      <div class='container'>
+                {% block content %}
         {% endblock content %}
+      </div>
+      
+
     </div>
-    
+  <footer>
+    <div class="fixed-bottom d-flex justify-content-center" style="height: 30px; background-color:#2F8F9D;">
+      <p style='color: white'>SSAFYING, ✨영화 '성도'의 주현배우✨</p>
+    </div>
+  </footer>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </html>
