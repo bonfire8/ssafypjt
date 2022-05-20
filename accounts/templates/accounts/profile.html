@@ -2,11 +2,47 @@
 
 {% block content %}
 <br>
-    <div class="container-fluid d-flex justify-content-between">
+    <div class="container-fluid d-flex">
+        {% if user != person %}
+        <div class="fs-3 flex-grow-1 d-flex align-items-center">
+            <i class="fa-solid fa-user-large me-2"></i>
+            <h2 class='fw-bold'> {{ person.username }}'s Profile</h2>
+        </div>
+        <div>
+            <div class='d-flex align-items-center'>
+                <div class='d-flex mt-3 me-2'>
+                    <p class="fs-6 fw-bolder align-items-center">
+                        Followings : {{ person.followings.all|length }} / Followers : {{person.followers.all|length}}
+                    </p>
+                </div>
+                {% if user != person %}
+                <div class='mx-2'>
+                    <form action="{% url 'accounts:follow' person.pk %}" method='POST'>
+                        {% csrf_token %}
+                        {% if user in person.followers.all %}
+                            <input type="submit" value="Unfollow">
+                        {% else %}
+                            <input type="submit" value="Follow">
+                        {% endif %}
+                    </form>
+                </div>
+                {% endif %}
+            </div>
+        </div> 
+        {% endif %}
         {% if user == person %}
-        <div class="fs-3 d-flex align-items-center">
+        <div class="fs-3 flex-grow-1 d-flex align-items-center">
             <i class="fa-solid fa-user-large me-2"></i>
             <h2 class='fw-bold'>My Profile</h2>
+        </div>
+        <div>
+            <div class='d-flex align-items-center'>
+                <div class='d-flex mt-3 me-2'>
+                    <p class="fs-6 fw-bolder align-items-center">
+                        Followings : {{ person.followings.all|length }} / Followers : {{person.followers.all|length}}
+                    </p>
+                </div>
+            </div>
         </div>
         <div class="d-flex align-items-center">
             <a href="{% url 'accounts:update' %}" class="text-decoration-none me-2" style='color: black'>회원정보수정</a>
@@ -17,51 +53,29 @@
         </div>
         {% endif %}
     </div>
-    <div>
-        
-        {% if user != person %}
-        <div class="fs-3 d-flex align-items-center">
-            <i class="fa-solid fa-user-large me-2"></i>
-            <h2 class='fw-bold'> {{ person.username }}'s Profile</h2>
-        </div>
-            <div>
-                <form action="{% url 'accounts:follow' person.pk %}" method='POST'>
-                    {% csrf_token %}
-                    {% if user in person.followers.all %}
-                        <input type="submit" value="Unfollow">
-                    {% else %}
-                        <input type="submit" value="Follow">
-                    {% endif %}
-                </form>
-            </div>
-        {% endif %}
-        <hr>
-        <div>
-            팔로잉 : {{ person.followings.all|length }} / 팔로워 : {{person.followers.all|length}}
-        </div>
-    </div>
 
-    <div class="d-flex align-items-center">
+    <hr>
+    <div class="d-flex">
         <i class="fs-4 me-2 bi bi-pencil-square"></i>
-        <h2>작성한 게시글</h2>
+        <h2 class='write'>작성한 게시글</h2>
     </div>
     {% for article in person.article_set.all %}
         <div>{{ article.title }}</div>
     {% endfor %}
 
     <hr>
-    <div class="d-flex align-items-center">
+    <div class="d-flex">
         <i class="fs-4 me-2 bi bi-chat-left-text"></i>
-        <h2>작성한 댓글</h2>
+        <h2 class='comment'>작성한 댓글</h2>
     </div>
     {% for comment in person.comments.all %}
     <div> {{ comment.content }} </div>
     {% endfor %}
 
     <hr>
-    <div class="d-flex align-items-center">
+    <div class="d-flex">
         <i class="fs-4 fa-solid fa-heart me-2" style="color:red"></i>
-        <h2>좋아요한 게시글 </h2>
+        <h2 class='like_write'>좋아요한 게시글 </h2>
     </div>
     {% for article in person.like_articles.all %}
         <div> {{ article.title }} </div>
