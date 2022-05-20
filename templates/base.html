@@ -32,13 +32,16 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent" style='color:white'>
               <ul class="navbar-nav me-auto mb-2 mb-md-0 mx-2 align-items-center">
                 <li class="nav-item me-2">
+                  <i class="fa-solid fa-film"></i>
                   <a href="{% url 'movies:index' %}" class="text-decoration-none fs-5 fw-bolder" style='color: #F4FFFF'>MOVIE</a>
                 </li>
                 <li class="nav-item me-2">
+                  <i class="fa-solid fa-message"></i>
                   <a href="{% url 'community:index' %}" class="text-decoration-none fs-5 fw-bolder" style='color: #F4FFFF'>COMMUNITY</a>
                 </li>
                 {% if request.user.is_authenticated %}
                 <li class="nav-item me-2">
+                  <i class="fa-solid fa-key"></i>
                   <a href="{% url 'accounts:profile' user %}" class="text-decoration-none fs-5 fw-bolder" style='color: #F4FFFF'>PROFILE</a>
                 </li>
                 <li class="nav-item d-flex me-2">
