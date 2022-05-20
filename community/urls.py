@@ -7,7 +7,6 @@ urlpatterns = [
     # community
     path('', views.index, name='index'),
     path('create/', views.create, name='create'), # GET / POST
-    # path('<int:article_pk>/', views.article_detail, name='detail'),
     path('<int:article_pk>/', views.detail, name='detail'),
     path('<int:article_pk>/delete/', views.delete, name='delete'),
     path('<int:article_pk>/update/', views.update, name='update'), # GET / POST
