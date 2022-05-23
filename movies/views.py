@@ -48,3 +48,6 @@ def likes(request, movie_pk):
         else:   # 없다면 좋아요 하기
             movie.like_users.add(request.user)
         return redirect('movies:detail', movie_pk)
+
+def recommend(request):
+    return render(request, 'movies/recommend.html')
