@@ -28,11 +28,17 @@
     {% endif %}
     <ul>
         {% for comment in comments %}
-            <li>한줄평: {{ comment.content }} 평점: {{ comment.rank }}</li>
-            <form action="{% url 'movies:comments_delete' movie.pk comment.pk %}" method='POST' class='d-inline'>
-                {% csrf_token %}
-                <input type="submit" value="DELETE">
-              </form>    
+          <li>한줄평: {{ comment.content }} 평점: 
+            {% if comment.rank == 5 %}★★★★★{% endif %}
+            {% if comment.rank == 4 %}★★★★{% endif %}
+            {% if comment.rank == 3 %}★★★{% endif %}
+            {% if comment.rank == 2 %}★★{% endif %}
+            {% if comment.rank == 1 %}★{% endif %}
+          </li>
+          <form action="{% url 'movies:comments_delete' movie.pk comment.pk %}" method='POST' class='d-inline'>
+              {% csrf_token %}
+              <input type="submit" value="DELETE">
+          </form>    
         {% endfor %}
     </ul>
     <form action="{% url 'movies:comments_create' movie.pk %}" method='POST'>
