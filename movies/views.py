@@ -1,6 +1,13 @@
+import random
 from django.shortcuts import get_list_or_404, render, redirect, get_object_or_404
+from django.contrib.auth import get_user_model
 from .models import Movie, MovieComment
 from .forms import MovieCommentForm
+from django_pandas.io import read_frame
+from sklearn.feature_extraction.text import TfidfVectorizer
+from numpy.linalg import norm
+import numpy as np
+
 # Create your views here.
 def movie_list(request):
     movies = Movie.objects.order_by('pk')
@@ -49,5 +56,40 @@ def likes(request, movie_pk):
             movie.like_users.add(request.user)
         return redirect('movies:detail', movie_pk)
 
-def recommend(request):
-    return render(request, 'movies/recommend.html')
+def recommend(request, username):
+    movies = Movie.objects.all()
+    data = read_frame(movies)
+    data["overview"].isnull().sum()
+    data['overview']=data['overview'].fillna('')
+    data['overview'].isnull().sum()
+
+    tfidf=TfidfVectorizer()
+    tfidf_mat=tfidf.fit_transform(data['overview']).toarray()
+    def cos_sim2(X, Y):
+        return np.dot(X, Y)/((norm(X)*norm(Y))+ 1e-7)
+
+    def top_match_ar2(data, name, rank=5, simf=cos_sim2):
+        sim=[]
+        for i in range(len(data)):
+            if name != i:
+                sim.append((simf(data[i], data[name]), i))
+        sim.sort()
+        sim.reverse()
+        return sim[:rank]
+
+    person = get_object_or_404(get_user_model(), username=username)
+    movielist  = person.like_movies.all()
+    rc = []
+    for i in movielist:
+        rc.append(i.id)
+    num = random.choice(rc)
+
+    movieList = []
+    for sim, movie_id in top_match_ar2(tfidf_mat, num, 10):
+        movieList.append((data.loc[movie_id, ['id', 'title', 'poster_path']]))
+    movieList = movieList[:10]
+    print(movieList)
+    context = {
+        'movieList':movieList
+    }
+    return render(request, 'movies/recommend.html', context)

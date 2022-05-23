@@ -82,5 +82,17 @@
 
     {% endfor %}
     <hr>
+    <div class="d-flex">
+        <i class="fs-4 fa-solid fa-heart me-2" style="color:red"></i>
+        <h2 class='like_write'>좋아요한 영화 </h2>
+    </div>
+    {% for movie in movielist%}
+        <img src="https://image.tmdb.org/t/p/w200{{movie.poster_path}}" alt={{ movie.title}} width='200' height='300'>
+        {{ movie.title }}
+        <br>
+        <br>
+    {% endfor %}
+
+    <hr>
     <a href="{% url 'movies:index' %}">BACK</a>
 {% endblock content %}

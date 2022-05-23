@@ -60,7 +60,7 @@
                 </li>
                 <li class="nav-item me-2">
                   <i class="bi bi-stars"></i>
-                  <a href="{% url 'movies:recommend' %}" class="text-decoration-none fs-5 fw-bolder" style='color: #F4FFFF'>RECOMMEND</a>
+                  <a href="{% url 'movies:recommend' user %}" class="text-decoration-none fs-5 fw-bolder" style='color: #F4FFFF'>RECOMMEND</a>
                 </li>
                 {% if request.user.is_authenticated %}
                 <li class="nav-item me-2">
