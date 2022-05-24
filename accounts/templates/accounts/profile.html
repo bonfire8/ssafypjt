@@ -59,7 +59,10 @@
         <i class="fs-4 me-2 bi bi-star-fill" style='color:#F7D716'></i>
         <h2 class='write'>작성한 한줄평</h2>
     </div>
-
+    {% if person.movie_comments.all|length == 0 %}
+    <p class="write_ibm fw-bold">작성한 한줄평이 없습니다.</p>
+    <br>
+    {% else %}
     <div style="width:70rem">
         <table class="table table-hover write_ibm fw-bold" style='color:white'>
             <thead style="background-color:#3BACB6; color:white">
@@ -118,12 +121,17 @@
             </tbody>
           </table>
     </div>
+    {% endif %}
 
     
     <div class="d-flex">
         <i class="fs-4 me-2 bi bi-pencil-square"></i>
         <h2 class='write'>작성한 게시글</h2>
     </div>
+    {% if person.article_set.all|length == 0 %}
+    <p class="write_ibm fw-bold">작성한 게시글이 없습니다.</p>
+    <br>
+    {% else %}
     <div style="width:50rem">
         <table class="table table-hover write_ibm fw-bold" style='color:white'>
             <thead style="background-color:#3BACB6; color:white">
@@ -144,11 +152,16 @@
             </tbody>
         </table>
     </div>
+    {% endif %}
 
     <div class="d-flex">
         <i class="fs-4 me-2 bi bi-chat-left-text"></i>
         <h2 class='comment'>작성한 댓글</h2>
     </div>
+    {% if person.comments.all|length == 0 %}
+    <p class="write_ibm fw-bold">작성한 댓글이 없습니다.</p>
+    <br>
+    {% else %}
     <div style="width:50rem">
         <table class="table table-hover write_ibm fw-bold" style='color:white'>
             <thead style="background-color:#3BACB6; color:white">
@@ -167,12 +180,16 @@
             </tbody>
         </table>
     </div>
-
+    {% endif %}
 
     <div class="d-flex">
         <i class="fs-4 fa-solid fa-heart me-2" style="color:red"></i>
         <h2 class='like_write'>좋아요한 게시글 </h2>
     </div>
+    {% if person.like_articles.all|length == 0 %}
+    <p class="write_ibm fw-bold">좋아요한 게시글이 없습니다.</p>
+    <br>
+    {% else %}
     <div style="width:30rem">
         <table class="table table-hover write_ibm fw-bold" style='color:white'>
             <thead style="background-color:#3BACB6; color:white">
@@ -181,7 +198,7 @@
               </tr>
             </thead>
             <tbody>
-                {% for article in person.article_set.all %}
+                {% for article in person.like_articles.all %}
                 <tr>
                     <td>
                         <a class='text-decoration-none' style="color:black" href='{% url 'community:detail' article.pk %}'>{{ article.title }}</a>
@@ -191,12 +208,16 @@
             </tbody>
         </table>
     </div>
-
+    {% endif %}
 
     <div class="d-flex">
         <i class="fs-4 fa-solid fa-heart me-2" style="color:red"></i>
         <h2 class='like_write'>좋아요한 영화 </h2>
     </div>
+    {% if movielist|length == 0 %}
+    <p class="write_ibm fw-bold">좋아요한 영화가 없습니다.</p>
+    <br>
+    {% else %}
     <div class="container">
         <section class="row row-cols-xs-1 d-flex justify-content-center">
             {% for movie in movielist%}
@@ -209,7 +230,7 @@
             {% endfor %}
         </section>
     </div>
-
+    {% endif %}
     <br>
     <div class="d-flex justify-content-center">
         <i class="fs-5 bi bi-house-fill"></i>
