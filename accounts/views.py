@@ -11,6 +11,7 @@ from django.views.decorators.http import require_http_methods, require_POST
 from .forms import CustomUserChangeForm, CustomUserCreationForm
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.http import JsonResponse
+from movies.models import Movie
 
 # Create your views here.
 @require_http_methods(['GET', 'POST'])
@@ -102,11 +103,11 @@ def change_password(request):
 def profile(request, username):
     person = get_object_or_404(get_user_model(), username=username)
     movielist  = person.like_movies.all()
-
+    movies = Movie.objects.all()
     context = {
         'person':person,
         'movielist':movielist,
-
+        'movies':movies,
     }
     return render(request, 'accounts/profile.html', context)
 

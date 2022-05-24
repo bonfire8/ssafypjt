@@ -20,7 +20,7 @@ def movie_list(request):
 def detail(request, movie_pk):
     movie = Movie.objects.get(pk=movie_pk)
     comment_form = MovieCommentForm()
-    comments=movie.movie_comments.all()
+    comments=movie.moviecomment_set.all()
     context = {
         'movie' : movie,
         'comment_form' : comment_form,
@@ -79,6 +79,18 @@ def recommend(request, username):
 
     person = get_object_or_404(get_user_model(), username=username)
     movielist  = person.like_movies.all()
+    movielst  = person.movie_comments.all()
+    idx = []
+    maxLst = []
+    for movie in movielst:
+        maxLst.append(movie.rank)
+    
+    for movie in movielst:
+        if max(maxLst) == movie.rank:
+            idx.append(movie.id)
+
+    num2 = random.choice(idx)
+
     rc = []
     for i in movielist:
         rc.append(i.id)
@@ -87,8 +99,53 @@ def recommend(request, username):
     movieList = []
     for sim, movie_id in top_match_ar2(tfidf_mat, num, 10):
         movieList.append((data.loc[movie_id, ['id', 'title', 'poster_path']]))
+    movieList = movieList[:5]
+
+    movieLst = []
+    for sim, movie_id in top_match_ar2(tfidf_mat, num2, 10):
+        movieLst.append((data.loc[movie_id, ['id', 'title', 'poster_path']]))
+    movieLst = movieLst[:5]
+    context = {
+        'movieLst':movieLst,
+        'movieList':movieList,
+    }
+    return render(request, 'movies/recommend.html', context)
+
+def recommend2(request, username):
+    movies = Movie.objects.all()
+    data = read_frame(movies)
+    data["overview"].isnull().sum()
+    data['overview']=data['overview'].fillna('')
+    data['overview'].isnull().sum()
+
+    tfidf=TfidfVectorizer()
+    tfidf_mat=tfidf.fit_transform(data['overview']).toarray()
+    def cos_sim2(X, Y):
+        return np.dot(X, Y)/((norm(X)*norm(Y))+ 1e-7)
+
+    def top_match_ar2(data, name, rank=5, simf=cos_sim2):
+        sim=[]
+        for i in range(len(data)):
+            if name != i:
+                sim.append((simf(data[i], data[name]), i))
+        sim.sort()
+        sim.reverse()
+        return sim[:rank]
+
+    person = get_object_or_404(get_user_model(), username=username)
+    movielist  = person.movie_comments.all()
+    maxV = 0
+    for movie in movielist:
+        if maxV < movie.rank:
+            idx = movie.id
+
+    num = idx
+
+    movieList = []
+    for sim, movie_id in top_match_ar2(tfidf_mat, num, 10):
+        movieList.append((data.loc[movie_id, ['id', 'title', 'poster_path']]))
     movieList = movieList[:10]
-    print(movieList)
+
     context = {
         'movieList':movieList
     }

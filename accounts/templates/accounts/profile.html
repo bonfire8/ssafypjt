@@ -56,6 +56,37 @@
 
     <hr>
     <div class="d-flex">
+        <i class="fs-4 fa-solid fa-heart me-2" style="color:red"></i>
+        <h2 class='write'>작성한 한줄평</h2>
+    </div>
+
+    {% for comment in person.movie_comments.all %}
+    <div class='d-flex  m-2'> 
+        <div class="me-2">
+            <p>Title</p>
+            {% for movie in movies %}
+            {% if movie.id == comment.movie_id %}
+                <a class='text-decoration-none' style="color:black" href='{% url 'movies:detail' movie.pk %}'>{{ movie.title }}</a>
+            {% endif %}
+            {% endfor %} 
+        </div>
+        <div class="me-2">
+            <p>한줄평</p>
+            {{comment.content}}
+        </div>
+        <div class="me-2">
+            <p>평점</p>
+            {% if comment.rank == 1 %} ★
+            {% elif comment.rank == 2 %} ★★
+            {% elif comment.rank == 3 %} ★★★
+            {% elif comment.rank == 4 %} ★★★★
+            {% elif comment.rank == 5 %} ★★★★★
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+    <hr>
+    <div class="d-flex">
         <i class="fs-4 me-2 bi bi-pencil-square"></i>
         <h2 class='write'>작성한 게시글</h2>
     </div>
@@ -86,12 +117,16 @@
         <i class="fs-4 fa-solid fa-heart me-2" style="color:red"></i>
         <h2 class='like_write'>좋아요한 영화 </h2>
     </div>
-    {% for movie in movielist%}
-        <img src="https://image.tmdb.org/t/p/w200{{movie.poster_path}}" alt={{ movie.title}} width='200' height='300'>
-        {{ movie.title }}
-        <br>
-        <br>
-    {% endfor %}
+    <div class="d-flex">
+        {% for movie in movielist%}
+        <div class="m-2">
+            <img src="https://image.tmdb.org/t/p/w200{{movie.poster_path}}" alt={{ movie.title}} width='200' height='300'>
+            <br>
+            <a class='text-decoration-none' style="color:black" href='{% url 'movies:detail' movie.pk %}'>{{ movie.title }}</a>
+        </div>
+
+        {% endfor %}
+    </div>
 
     <hr>
     <a href="{% url 'movies:index' %}">BACK</a>

@@ -1,11 +1,16 @@
 {% extends 'base.html' %}
 {% block content %}
 <div>
-    <h2>Recommend</h2>
+    <h2>좋아요 기준 추천 영화</h2>
     {% for movie in movieList %}
     <img src="https://image.tmdb.org/t/p/w200{{movie.poster_path}}" alt={{ movie.title}} width='200' height='300'>
     <a href="{% url 'movies:detail' movie.id%}">{{ movie.title }}</a>
     
+    {% endfor %}
+    <h2>평점 기준 추천 영화</h2>
+    {% for movie in movieLst %}
+    <img src="https://image.tmdb.org/t/p/w200{{movie.poster_path}}" alt={{ movie.title}} width='200' height='300'>
+    <a href="{% url 'movies:detail' movie.id%}">{{ movie.title }}</a>
     {% endfor %}
 </div>
 {% endblock content %}
