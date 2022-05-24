@@ -7,6 +7,8 @@ from django_pandas.io import read_frame
 from sklearn.feature_extraction.text import TfidfVectorizer
 from numpy.linalg import norm
 import numpy as np
+from django.http import HttpResponse, JsonResponse
+
 
 # Create your views here.
 def movie_list(request):
@@ -153,3 +155,21 @@ def recommend2(request, username):
         'movieList':movieList
     }
     return render(request, 'movies/recommend.html', context)
+
+def unlikes(request, movie_pk):
+    if request.user.is_authenticated:
+        movie = get_object_or_404(Movie, pk=movie_pk)
+        # 현재 좋아요를 요청하는 회원이
+        # 해당 게시글의 좋아요를 누른 회원 목록에 이미 있다면,
+        if movie.like_users.filter(pk=request.user.pk).exists():
+            movie.like_users.remove(request.user) # 좋아요 취소
+            liked = False
+        else:   # 없다면 좋아요 하기
+            movie.like_users.add(request.user)
+            liked = True
+        context = {
+            'liked': liked,
+            'count': movie.like_users.count(),
+        }
+        return JsonResponse(context)
+    return redirect('accounts:login')
