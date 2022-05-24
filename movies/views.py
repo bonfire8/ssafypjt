@@ -82,29 +82,32 @@ def recommend(request, username):
     movielst  = person.movie_comments.all()
     idx = []
     maxLst = []
-    for movie in movielst:
-        maxLst.append(movie.rank)
-    
-    for movie in movielst:
-        if max(maxLst) == movie.rank:
-            idx.append(movie.id)
+    movieLst = []
+    if len(movielst) != 0:
+        for movie in movielst:
+            maxLst.append(movie.rank)
+        
+        for movie in movielst:
+            if max(maxLst) == movie.rank:
+                idx.append(movie.id)
 
-    num2 = random.choice(idx)
+        num2 = random.choice(idx)
 
-    rc = []
-    for i in movielist:
-        rc.append(i.id)
-    num = random.choice(rc)
+        for sim, movie_id in top_match_ar2(tfidf_mat, num2, 10):
+            movieLst.append((data.loc[movie_id, ['id', 'title', 'poster_path']]))
+        movieLst = movieLst[:5]
 
     movieList = []
-    for sim, movie_id in top_match_ar2(tfidf_mat, num, 10):
-        movieList.append((data.loc[movie_id, ['id', 'title', 'poster_path']]))
-    movieList = movieList[:5]
+    if len(movielist) != 0:
+        rc = []
+        for i in movielist:
+            rc.append(i.id)
+        num = random.choice(rc)
 
-    movieLst = []
-    for sim, movie_id in top_match_ar2(tfidf_mat, num2, 10):
-        movieLst.append((data.loc[movie_id, ['id', 'title', 'poster_path']]))
-    movieLst = movieLst[:5]
+        for sim, movie_id in top_match_ar2(tfidf_mat, num, 10):
+            movieList.append((data.loc[movie_id, ['id', 'title', 'poster_path']]))
+        movieList = movieList[:5]
+
     context = {
         'movieLst':movieLst,
         'movieList':movieList,

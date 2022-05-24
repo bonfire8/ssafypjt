@@ -1,16 +1,49 @@
 {% extends 'base.html' %}
 {% block content %}
-<div>
-    <h2>좋아요 기준 추천 영화</h2>
-    {% for movie in movieList %}
-    <img src="https://image.tmdb.org/t/p/w200{{movie.poster_path}}" alt={{ movie.title}} width='200' height='300'>
-    <a href="{% url 'movies:detail' movie.id%}">{{ movie.title }}</a>
-    
-    {% endfor %}
-    <h2>평점 기준 추천 영화</h2>
-    {% for movie in movieLst %}
-    <img src="https://image.tmdb.org/t/p/w200{{movie.poster_path}}" alt={{ movie.title}} width='200' height='300'>
-    <a href="{% url 'movies:detail' movie.id%}">{{ movie.title }}</a>
-    {% endfor %}
+<div class="container">
+    <div class="d-flex mt-3">
+        <i class="fs-3 fa-solid fa-heart me-2" style="color:red"></i>
+        <h2 class='like_write'>좋아요 기준 추천 영화</h2>
+    </div>
+    <div>
+        {% if movieList|length != 0 %}
+        <section class="row row-cols-xs-1 d-flex justify-content-center">
+            {% for movie in movieList%}
+            <div class="card m-2 d-flex justify-content-center" style="width:15rem; background-color:#B3E8E5">
+                <img src="https://image.tmdb.org/t/p/w200{{movie.poster_path}}" alt={{ movie.title}} class="m-1" height='300'>
+                <div class="card-body">
+                    <a class="write_ibm fw-bold text-decoration-none" style="color:black" href="{% url 'movies:detail' movie.id%}">{{ movie.title }}</a>
+                </div>
+            </div>
+            {% endfor %}
+        </section>
+        {% else %}
+        <p class="write_ibm">영화에 좋아요를 눌러주세요</p>
+        {% endif %}
+    </div>
+
+    <hr>
+    <div class="d-flex align-content-center">
+        <i class="fs-3 me-2 bi bi-star-fill" style='color:#F7D716'></i>
+        <h2 class='like_write'>평점 기준 추천 영화</h2>
+    </div>
+    <div>
+        {% if movieLst|length != 0 %}
+        <section class="row row-cols-xs-1 d-flex justify-content-center">
+            {% for movie in movieLst%}
+            <div class="card m-2 d-flex justify-content-center" style="width:15rem; background-color:#B3E8E5">
+                <img src="https://image.tmdb.org/t/p/w200{{movie.poster_path}}" alt={{ movie.title}} class="m-1" height='300'>
+                <div class="card-body">
+                    <a class="write_ibm fw-bold text-decoration-none" style="color:black" href="{% url 'movies:detail' movie.id%}">{{ movie.title }}</a>
+                </div>
+            </div>
+            {% endfor %}
+        </section>
+        {% else %}
+        <p class="write_ibm">영화에 평점을 매겨주세요</p>
+        {% endif %}
+    </div>
 </div>
+<br>
+<br>
 {% endblock content %}
