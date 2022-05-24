@@ -53,8 +53,10 @@ def detail(request, article_pk):
 def delete(request, article_pk):
     if request.user.is_authenticated:
         article = get_object_or_404(Article, pk=article_pk)
-        article.delete()
-    return redirect('community:index')
+        if request.user == article.user:
+            article.delete()
+            return redirect('community:index')
+    return redirect('community:detail', article.pk)
 
 
 @login_required
