@@ -56,42 +56,75 @@
 
     <hr>
     <div class="d-flex">
-        <i class="fs-4 fa-solid fa-heart me-2" style="color:red"></i>
+        <i class="fs-4 me-2 bi bi-star-fill" style='color:#F7D716'></i>
         <h2 class='write'>작성한 한줄평</h2>
     </div>
 
-    {% for comment in person.movie_comments.all %}
-    <div class='d-flex  m-2'> 
-        <div class="me-2">
-            <p>Title</p>
-            {% for movie in movies %}
-            {% if movie.id == comment.movie_id %}
-                <a class='text-decoration-none' style="color:black" href='{% url 'movies:detail' movie.pk %}'>{{ movie.title }}</a>
-            {% endif %}
-            {% endfor %} 
-        </div>
-        <div class="me-2">
-            <p>한줄평</p>
-            {{comment.content}}
-        </div>
-        <div class="me-2">
-            <p>평점</p>
-            {% if comment.rank == 1 %} ★
-            {% elif comment.rank == 2 %} ★★
-            {% elif comment.rank == 3 %} ★★★
-            {% elif comment.rank == 4 %} ★★★★
-            {% elif comment.rank == 5 %} ★★★★★
-            {% endif %}
-        </div>
-    </div>
-    {% endfor %}
+    
+    <table class="table table-hover" style='color:white'>
+        <thead style="background-color:#3BACB6; color:white">
+          <tr>
+            <th>영화 제목</th>
+            <th>한줄평</th>
+            <th>평점</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for comment in person.movie_comments.all %}
+            <tr>
+                <td>
+                {% for movie in movies %}
+                    {% if movie.id == comment.movie_id %}
+                        <a class='text-decoration-none' style="color:black" href='{% url 'movies:detail' movie.pk %}'>{{ movie.title }}</a>
+                    {% endif %}
+                {% endfor %}
+                </td>
+                <td style='color:black'>{{comment.content}}</td>
+                <td style='color:#F7D716'>
+                    {% if comment.rank == 1 %} 
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star"></i>
+                    <i class="bi bi-star"></i>
+                    <i class="bi bi-star"></i>
+                    <i class="bi bi-star"></i>
+                    {% elif comment.rank == 2 %}
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star"></i>
+                    <i class="bi bi-star"></i>
+                    <i class="bi bi-star"></i>
+                    {% elif comment.rank == 3 %}
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star"></i>
+                    <i class="bi bi-star"></i>
+                    {% elif comment.rank == 4 %}
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star"></i>
+                    {% elif comment.rank == 5 %}
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+
     <hr>
     <div class="d-flex">
         <i class="fs-4 me-2 bi bi-pencil-square"></i>
         <h2 class='write'>작성한 게시글</h2>
     </div>
     {% for article in person.article_set.all %}
-        <div>{{ article.title }}</div>
+    <a class='text-decoration-none' style="color:black" href='{% url 'community:detail' article.pk %}'>{{ article.title }}</a>
     {% endfor %}
 
     <hr>
@@ -100,7 +133,7 @@
         <h2 class='comment'>작성한 댓글</h2>
     </div>
     {% for comment in person.comments.all %}
-    <div> {{ comment.content }} </div>
+    <a class='text-decoration-none' style="color:black" href='{% url 'community:detail' comment.pk %}'>{{ comment.content }}</a>
     {% endfor %}
 
     <hr>
@@ -109,7 +142,7 @@
         <h2 class='like_write'>좋아요한 게시글 </h2>
     </div>
     {% for article in person.like_articles.all %}
-        <div> {{ article.title }} </div>
+        <a class='text-decoration-none' style="color:black" href='{% url 'community:detail' article.pk %}'>{{ article.title }}</a>
 
     {% endfor %}
     <hr>
@@ -117,17 +150,19 @@
         <i class="fs-4 fa-solid fa-heart me-2" style="color:red"></i>
         <h2 class='like_write'>좋아요한 영화 </h2>
     </div>
-    <div class="d-flex">
-        {% for movie in movielist%}
-        <div class="m-2">
-            <img src="https://image.tmdb.org/t/p/w200{{movie.poster_path}}" alt={{ movie.title}} width='200' height='300'>
-            <br>
-            <a class='text-decoration-none' style="color:black" href='{% url 'movies:detail' movie.pk %}'>{{ movie.title }}</a>
-        </div>
-
-        {% endfor %}
+    <div class="container">
+        <section class="row row-cols-xs-1 d-flex justify-content-center">
+            {% for movie in movielist%}
+            <div class="card m-2 d-flex justify-content-center" style="width:18rem; background-color:#B3E8E5">
+                <img src="https://image.tmdb.org/t/p/w200{{movie.poster_path}}" alt={{ movie.title}} class="m-1">
+                <div class="card-body">
+                    <a class='card-title fw-bold text-decoration-none' style="color:black" href='{% url 'movies:detail' movie.pk %}'>{{ movie.title }}</a>
+                </div>
+            </div>
+            {% endfor %}
+        </section>
     </div>
 
-    <hr>
+    <br>
     <a href="{% url 'movies:index' %}">BACK</a>
 {% endblock content %}
