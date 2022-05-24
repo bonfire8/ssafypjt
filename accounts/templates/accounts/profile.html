@@ -123,7 +123,7 @@
     </div>
     {% endif %}
 
-    
+    <br>
     <div class="d-flex">
         <i class="fs-4 me-2 bi bi-pencil-square"></i>
         <h2 class='write'>작성한 게시글</h2>
@@ -153,7 +153,7 @@
         </table>
     </div>
     {% endif %}
-
+    <br>
     <div class="d-flex">
         <i class="fs-4 me-2 bi bi-chat-left-text"></i>
         <h2 class='comment'>작성한 댓글</h2>
@@ -181,7 +181,7 @@
         </table>
     </div>
     {% endif %}
-
+    <br>
     <div class="d-flex">
         <i class="fs-4 fa-solid fa-heart me-2" style="color:red"></i>
         <h2 class='like_write'>좋아요한 게시글 </h2>
@@ -209,7 +209,7 @@
         </table>
     </div>
     {% endif %}
-
+    <br>
     <div class="d-flex">
         <i class="fs-4 fa-solid fa-heart me-2" style="color:red"></i>
         <h2 class='like_write'>좋아요한 영화 </h2>
@@ -219,9 +219,9 @@
     <br>
     {% else %}
     <div class="container">
-        <section class="row row-cols-xs-1 d-flex justify-content-center">
+        <section class="row row-cols-xs-1 d-flex justify-content-start">
             {% for movie in movielist%}
-            <div class="card m-2 d-flex justify-content-center" style="width:18rem; background-color:#B3E8E5">
+            <div class="card m-2 d-flex justify-content-center" style="width:15rem; background-color:#B3E8E5">
                 <img src="https://image.tmdb.org/t/p/w200{{movie.poster_path}}" alt={{ movie.title}} class="m-1" height='300'>
                 <div class="card-body">
                     <a class='card-title fw-bold text-decoration-none write_ibm' style="color:black" href='{% url 'movies:detail' movie.pk %}'>{{ movie.title }}</a>
