@@ -2,7 +2,7 @@
 {% block content %}
 <div class="container">
     <div class="d-flex mt-3">
-        <i class="fs-3 fa-solid fa-heart me-2" style="color:red"></i>
+        <i class="fs-3 fa-solid fa-heart me-2 mt-1" style="color:red"></i>
         <h2 class='like_write'>좋아요 기준 추천 영화</h2>
     </div>
     <div>
@@ -25,7 +25,7 @@
     <hr>
     <div class="d-flex align-content-center">
         <i class="fs-3 me-2 bi bi-star-fill" style='color:#F7D716'></i>
-        <h2 class='like_write'>평점 기준 추천 영화</h2>
+        <h2 class='mt-1 like_write'>평점 기준 추천 영화</h2>
     </div>
     <div>
         {% if movieLst|length != 0 %}
