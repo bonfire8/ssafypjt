@@ -28,17 +28,16 @@
         <h1 class='fw-bold like_write'><i class="fa-solid fa-play"></i> {{ movie.title }}</h1>
 
         </h1>
-        <div class='write_ibm'><i class="bi bi-calendar"></i> 개봉일 : {{ movie.release_date }}</div>
-        <div class='write_ibm'><i class="fa-solid fa-star"></i> 평균 평점 : {{ movie.vote_average }}</div>
+        <div style="padding: 5px 1px 2px 3px;" class='write_ibm'><i class="bi bi-calendar"></i> 개봉일 : {{ movie.release_date }}</div>
+        <div style="padding: 5px 1px 2px 3px;" class='write_ibm'><i class="fa-solid fa-star"></i> 평균 평점 : {{ movie.vote_average }}</div>
         {% if movie.overview %}
-          <div class='write_ibm'><i class="fa-solid fa-circle-info"></i> 줄거리 : {{ movie.overview }}</div>
+          <div style="padding: 5px 1px 2px 3px;" class='write_ibm'><i class="fa-solid fa-circle-info"></i> 줄거리 : {{ movie.overview }}</div>
         {% endif %}
-        {% for genre in movies.genre %}
-          <h1>1
-          </h1>
-          {{ genre }}
+
+       
+        <div style="padding: 5px 1px 2px 3px;" class='write_ibm'><i class="bi bi-film"></i> 장르 :  {% for gn in genres %}
+          {{ gn }}
         {% endfor %}
-        <div class='write_ibm'><i class="bi bi-film"></i> 장르 : {{ movie.genre }}
         </div>
 
         <hr>

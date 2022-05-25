@@ -19,6 +19,7 @@
   right: 60px;
 }
 
+
 </style>
 
 <br>
@@ -30,7 +31,7 @@
         <img src="https://image.tmdb.org/t/p/w185/{{movie.poster_path}}" alt="header" class="d-block" style="width:20rem; height:25rem;">
       </div>
       {% endfor %}
-    </div>
+    </div>*
   </div>
   <div class="d-flex align-items-center">
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev" style="height:30rem;">
@@ -46,7 +47,7 @@
 
 <div class="row">
   {% for movie in movies %}
-    <div class="col-2">
+    <div class="col-lg-2 col-4">
       <div class="card border-light mb-3" style="max-width: 18rem;" >
         <div class="card-body">
           {% if movie.poster_path|length%}
@@ -79,12 +80,12 @@
          <!-- Modal -->
          <div class="modal fade" id="exampleModal{{movie.id}}" tabindex="-1" aria-labelledby="exampleModalLabel{{movie.id}}" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-              <div class="modal-header" style="background-color:#2F8F9D;">
-                <h5 class="modal-title" id="exampleModalLabel{{movie.id}}">{{movie.title}}</h5>
+            <div class="modal-content" style="width:80%;">
+              <div class="modal-header" style="background-color:#2084a8">
+                <h5 class="modal-title write" id="exampleModalLabel{{movie.id}}">{{movie.title}}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-              <div class="modal-body">
+              <div class="modal-body write_ibm">
               <img
                 src="https://image.tmdb.org/t/p/w780/{{movie.poster_path}}"
                 class="img-fluid"
@@ -92,16 +93,16 @@
                 {{movie.overview}}
               </div>
               <div class="modal-footer">
-                <a><button type="button" class="btn btn-outline-light mb-4" data-bs-dismiss="modal" style="background-color:#2F8F9D;">닫기</button></a>
+                <a><button type="button" class="btn btn-outline-light mb-4" data-bs-dismiss="modal" style="background-color:#2084a8">닫기</button></a>
                 <a href="{% url 'movies:detail' movie.id %}">
-                  <button type="button" class="btn btn-outline-light mb-4" style="background-color:#2F8F9D;">상세페이지</button>
+                  <button type="button" class="btn btn-outline-light mb-4" style="background-color:#2084a8">상세페이지</button>
                 </a>
                 <form class="like-form" data-movie-id="{{ movie.pk }}">
                   {% csrf_token %}
                   {% if user in movie.like_users.all %}
-                    <button id="like-button-{{ movie.pk }}" class='btn btn-outline-light mb-4' style="background-color:#2F8F9D;">좋아요 취소</button>
+                    <button id="like-button-{{ movie.pk }}" class='btn btn-outline-light mb-4' style="background-color:#2084a8">좋아요 취소</button>
                   {% else %}
-                    <button id="like-button-{{ movie.pk }}" class='btn btn-outline-light mb-4' style="background-color:#2F8F9D;">좋아요</button>
+                    <button id="like-button-{{ movie.pk }}" class='btn btn-outline-light mb-4' style="background-color:#2084a8">좋아요</button>
                   {% endif %}
                 </form> 
               </div>
@@ -145,10 +146,10 @@ modalEnters.forEach(function(element,index){
     })
 })
 
-window.onload=function(){
+{% comment %} window.onload=function(){
       liveToastBtn.click()
 
-}
+} {% endcomment %}
   {% comment %} console.log(csrftoken) {% endcomment %}
   // for..of / forEach 여러 forms를 반복을 돌면서 axios를 요청할 수 있도록 함
    forms.forEach(form => {

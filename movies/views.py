@@ -23,10 +23,21 @@ def detail(request, movie_pk):
     movie = Movie.objects.get(pk=movie_pk)
     comment_form = MovieCommentForm()
     comments=movie.moviecomment_set.all()
+    genres = movie.genre
+    genre_lst = []
+    genre = ''
+    for i in genres:
+        if i =="'" or i =='[' or i==']' or i ==',' or i ==' ':
+            if len(genre) != 0:
+                genre_lst.append(genre)
+                genre = ''
+        else:
+            genre += i
     context = {
         'movie' : movie,
         'comment_form' : comment_form,
         'comments' : comments,
+        'genres' : genre_lst,
     }
     return render(request, 'movies/detail2.html', context)
 
@@ -62,11 +73,22 @@ def comments_update(request, movie_pk, comment_pk):
         movie = Movie.objects.get(pk=movie_pk)
         comment_form = MovieCommentForm(instance=comment)
         comments=movie.moviecomment_set.all()
+    genres = movie.genre
+    genre_lst = []
+    genre = ''
+    for i in genres:
+        if i =="'" or i =='[' or i==']' or i ==',' or i ==' ':
+            if len(genre) != 0:
+                genre_lst.append(genre)
+                genre = ''
+        else:
+            genre += i
     context = {
         'movie' : movie,
         'comment_form' : comment_form,
         'comments' : comments,
-        'updatecomment' :  comment
+        'updatecomment' :  comment,
+        'genres' : genre_lst,
     }
     return render(request, 'movies/detail3.html', context)
 def likes(request, movie_pk):
@@ -129,7 +151,6 @@ def recommend(request, username):
         for sim, movie_id in top_match_ar2(tfidf_mat, num, 10):
             movieList.append((data.loc[movie_id, ['id', 'title', 'poster_path']]))
         movieList = movieList[:5]
-
     context = {
         'movieLst':movieLst,
         'movieList':movieList,
@@ -170,7 +191,7 @@ def recommend2(request, username):
     for sim, movie_id in top_match_ar2(tfidf_mat, num, 10):
         movieList.append((data.loc[movie_id, ['id', 'title', 'poster_path']]))
     movieList = movieList[:10]
-
+    print(movieList)
     context = {
         'movieList':movieList
     }
