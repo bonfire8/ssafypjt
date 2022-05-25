@@ -140,7 +140,7 @@ urlpatterns = [
 
 #### Recommend
 
-![슬라이드5](README.assets/슬라이드5.PNG)
+![슬라이드5](README.assets/슬라이드5-16534453594302.PNG)
 
 
 
@@ -152,9 +152,11 @@ urlpatterns = [
 
 #### 컬러 팔레트
 
-파도색 비슷하게 구성 예정
+파도색 비슷하게 구성
 
-<img src="README.assets/컬러팔레트.PNG" alt="컬러팔레트" style="zoom: 33%;" />
+![AdobeColor-My Color Theme](README.assets/AdobeColor-My Color Theme.jpeg)
+
+
 
 ### 2-3. 데이터 베이스 모델링 (ERD)
 

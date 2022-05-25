@@ -40,11 +40,11 @@
 </style>
 <body>
     <div>
-        <nav class="navbar navbar-expand-md bg-color-#2F8F9D" style="navbar-color:#2F8F9D; background-color:#2F8F9D;">
+        <nav class="navbar navbar-expand-md bg-color-#2F8F9D" style="navbar-color:#2F8F9D; background: url(https://storage.heypop.kr/assets/2021/08/09122056/Wave05-768x442.jpg);">
         <div class="container-fluid d-flex justify-content-between">
           <div class='d-flex align-items-center'>
-            <i class="bi bi-tsunami fs-2 m-1.5" style="color:rgb(179, 232, 229)"></i>
-            <a href="{% url 'movies:index' %}" class="text-decoration-none fs-2 m-2 ssafying" style="color:white" >SSAFYING</a>
+            <i class="bi bi-tsunami fs-2 m-1.5" style="color:white;"></i>
+            <a href="{% url 'movies:index' %}" class="text-decoration-none fs-2 m-2 ssafying" style="color:white;" >SSAFYING</a>
           </div>
 
           <div class="d-flex align-items-center">
@@ -53,11 +53,11 @@
                 <i class="fas fa-bars" style="color:#fff; font-size:28px;"></i>
               </span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent" style='color:white'>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent" style='color:white;'>
               <ul class="navbar-nav me-auto mb-2 mb-md-0 mx-2 align-items-center">
                 <li class="nav-item me-2">
                   <i class="fa-solid fa-film"></i>
-                  <a href="{% url 'movies:index' %}" class="text-decoration-none fs-5 fw-bolder" style='color: #F4FFFF'>MOVIE</a>
+                  <a href="{% url 'movies:index' %}" class="text-decoration-none fs-5 fw-bolder" style='color: #F4FFFF;'>MOVIE</a>
                 </li>
                 <li class="nav-item me-2">
                   <i class="fa-solid fa-message"></i>
@@ -75,14 +75,14 @@
                 <li class="nav-item d-flex me-2">
                   <form action="{% url 'accounts:logout' %}" method="POST">
                     {% csrf_token %}
-                    <input type="submit" class="btn btn-outline-light me-2 btn-sm" value="Logout">
+                    <input type="submit" class="btn btn-light me-2 btn-sm" style="color:#1D738E" value="Logout">
                   </form>
                   {% else %}
                   <li>
-                    <a href="{% url 'accounts:login' %}" class="text-decoration-none me-2" style='color: #F4FFFF'>Login</a>
-                    <a href="{% url 'accounts:signup' %}" class="text-decoration-none me-2" style='color: #F4FFFF'>Signup</a>
+                    <a href="{% url 'accounts:login' %}" class="text-decoration-none me-2" style='color: #F4FFFF; text-shadow: -2px 0 #000, 0 2px #000, 2px 0 #000, 0 -2px #000;'>Login</a>
+                    <a href="{% url 'accounts:signup' %}" class="text-decoration-none me-2" style='color: #F4FFFF; text-shadow: -2px 0 #000, 0 2px #000, 2px 0 #000, 0 -2px #000;'>Signup</a>
                   </li>
-                  {% endif %}
+                {% endif %}
                 </li>
               </ul>
             </div>
@@ -101,7 +101,7 @@
 
     </div>
   <footer>
-    <div class="fixed-bottom d-flex justify-content-center" style="height: 30px; background-color:#2F8F9D;">
+    <div class="fixed-bottom d-flex justify-content-center" style="height: 30px;  background-color:#5d9ebc;)">
       <p style='color: white'>SSAFYING, ✨영화 '성도'의 주현배우✨</p>
     </div>
   </footer>

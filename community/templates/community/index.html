@@ -13,12 +13,12 @@
 
   <div>
     <table class="table table-hover write_ibm fw-bold" style='color:white'>
-        <thead style="background-color:#3BACB6; color:white">
+        <thead style="background-color:#2084a8; color:white">
           <tr class="d-box">
             <th style='width:600px;'>제목</th>
             <th style='width:100px;'>작성자</th>
             <th style='width:300px;'>작성 시각</th>
-            <th style='width:200px;'></th>
+            <th style='width:100px;'></th>
           </tr>
         </thead>
         <tbody>
@@ -34,13 +34,15 @@
                   {% csrf_token %}
                   
                   {% if user in article.like_users.all %}
-                    <i class="fa-solid fa-heart" style='color:red'></i>
+                    <button type="submit" style="border:none; background-color:transparent;">
+                      <i class="fa-solid fa-heart" style='color:red'></i>
+                    </button>
                     {{ article.like_users.all|length }}
-                    <input class="ms-2" type="submit" value="좋아요 취소">
                   {% else %}
-                    <i class="fa-solid fa-heart" style='color:black'></i>
+                    <button type="submit" style="border:none; background-color:transparent;">
+                      <i class="fa-solid fa-heart" style='color:black'></i>
+                    </button>
                     {{ article.like_users.all|length }}
-                    <input class="ms-2" type="submit" value="좋아요">
                   {% endif %}
                   
                 </form>

@@ -65,7 +65,7 @@
     {% else %}
     <div style="width:70rem">
         <table class="table table-hover write_ibm fw-bold" style='color:white'>
-            <thead style="background-color:#3BACB6; color:white">
+            <thead style="background-color:#2084a8; color:white">
               <tr>
                 <th>영화 제목</th>
                 <th>한줄평</th>
@@ -134,7 +134,7 @@
     {% else %}
     <div style="width:50rem">
         <table class="table table-hover write_ibm fw-bold" style='color:white'>
-            <thead style="background-color:#3BACB6; color:white">
+            <thead style="background-color:#2084a8; color:white">
               <tr class="d-box">
                 <th>게시글 제목</th>
                 <th style="width:300px">작성 시각</th>
@@ -164,7 +164,7 @@
     {% else %}
     <div style="width:50rem">
         <table class="table table-hover write_ibm fw-bold" style='color:white'>
-            <thead style="background-color:#3BACB6; color:white">
+            <thead style="background-color:#2084a8; color:white">
               <tr class="d-box">
                 <th>댓글</th>
                 <th style="width:300px">작성 시각</th>
@@ -192,7 +192,7 @@
     {% else %}
     <div style="width:30rem">
         <table class="table table-hover write_ibm fw-bold" style='color:white'>
-            <thead style="background-color:#3BACB6; color:white">
+            <thead style="background-color:#2084a8; color:white">
               <tr class="d-box">
                 <th>게시글 제목</th>
               </tr>
@@ -221,7 +221,7 @@
     <div class="container">
         <section class="row row-cols-xs-1 d-flex justify-content-start">
             {% for movie in movielist%}
-            <div class="card m-2 d-flex justify-content-center" style="width:15rem; background-color:#B3E8E5">
+            <div class="card m-2 d-flex justify-content-center" style="width:15rem; background-color:#aecfde">
                 <img src="https://image.tmdb.org/t/p/w200{{movie.poster_path}}" alt={{ movie.title}} class="m-1" height='300'>
                 <div class="card-body">
                     <a class='card-title fw-bold text-decoration-none write_ibm' style="color:black" href='{% url 'movies:detail' movie.pk %}'>{{ movie.title }}</a>

@@ -9,7 +9,7 @@
         {% if movieList|length != 0 %}
         <section class="row row-cols-xs-1 d-flex justify-content-center">
             {% for movie in movieList%}
-            <div class="card m-2 d-flex justify-content-center" style="width:15rem; background-color:#B3E8E5">
+            <div class="card m-2 d-flex justify-content-center" style="width:15rem; background-color:#aecfde">
                 <img src="https://image.tmdb.org/t/p/w200{{movie.poster_path}}" alt={{ movie.title}} class="m-1" height='300'>
                 <div class="card-body">
                     <a class="write_ibm fw-bold text-decoration-none" style="color:black" href="{% url 'movies:detail' movie.id%}">{{ movie.title }}</a>
@@ -31,7 +31,7 @@
         {% if movieLst|length != 0 %}
         <section class="row row-cols-xs-1 d-flex justify-content-center">
             {% for movie in movieLst%}
-            <div class="card m-2 d-flex justify-content-center" style="width:15rem; background-color:#B3E8E5">
+            <div class="card m-2 d-flex justify-content-center" style="width:15rem; background-color:#aecfde">
                 <img src="https://image.tmdb.org/t/p/w200{{movie.poster_path}}" alt={{ movie.title}} class="m-1" height='300'>
                 <div class="card-body">
                     <a class="write_ibm fw-bold text-decoration-none" style="color:black" href="{% url 'movies:detail' movie.id%}">{{ movie.title }}</a>
