@@ -1,52 +1,36 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    {% comment %} <h1>movie-index</h1>
-    {% for movie in movies  %}
-       <a href="{% url 'movies:detail' movie.pk%}">{{ movie.title }}</a>
-        
-        <img src="https://image.tmdb.org/t/p/w200{{movie.poster_path}}" alt={{ movie.title}} width='200' height='300'>
-        <hr>
-    {% endfor %} {% endcomment %}
-    {% comment %} <div class="row row-cols-1 row-cols-md-4 g-4">
-      {% for movie in movies %}
-      <div class="col">
-        <div class="card h-100" style="width: 18rem;">
-          <img src="https://image.tmdb.org/t/p/w200{{movie.poster_path}}" alt={{ movie.title}} class="img-fluid">
-          <div class="card-body">
-            <h5 class="card-title">{{ movie.title }}</h5>
-            
-          </div>
-        </div>
+<style>
+  .bgi {
+    background-image: url("https://storage.heypop.kr/assets/2021/08/09122103/Wave21-768x554.jpg");
+    display:flex;
+    justify-content:center;
+    align-items:center;
+  }
+  
+</style>
+
+<br>
+<div class="bgi" style="height:30rem;">
+  <div id="carouselExampleControls" style="width:20rem; height:25rem;" class="carousel slide d-flex justify-content-center align-items-center" data-bs-ride="carousel" >
+    <div class="carousel-inner">
+      {% for movie in movies %}    
+      <div class="carousel-item {% if forloop.counter == 1 %} active {% endif %}">
+        <img src="https://image.tmdb.org/t/p/w185/{{movie.poster_path}}" alt="header" class="d-block" style="width:20rem; height:25rem;">
       </div>
       {% endfor %}
-    </div> {% endcomment %}
-
-    {% comment %} <div class="row row-cols-3 row-cols-md-6 g-4">
-      {% for movie in movies %}
-        <div class="col">
-          <div class="card border-light mb-3" style="max-width: 18rem;">
-            <div class="card-body">
-
-              <div
-                class="bg-image hover-overlay ripple"
-                data-mdb-ripple-color="light"
-                id="mouse-enter"
-              >
-                <img
-                  src="https://image.tmdb.org/t/p/w185/{{movie.poster_path}}"
-                  class="img-fluid"
-                  
-                />
-                <a href="#!">
-                  <div
-                    class="mask"
-                    style="background-color: rgba(251, 251, 251, 0.15)"
-                  ></div>
-                </a>
-              </div> {% endcomment %}
-
-          <!-- Button trigger modal -->
+    </div>
+  </div>
+  <button class="carousel-control-prev ms-5" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next me-5" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
 
 <div class="row">
   {% for movie in movies %}
