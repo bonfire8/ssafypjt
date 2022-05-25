@@ -48,52 +48,56 @@
         {% endif %}
         <ul class="write_ibm"> 
           {% for comment in comments %}
-            <li class="list-inline">
-              <div class='text-warning d-inline-block'>
-                {% if comment.rank == 1 %} 
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star"></i>
-                <i class="bi bi-star"></i>
-                <i class="bi bi-star"></i>
-                <i class="bi bi-star"></i>
-                {% elif comment.rank == 2 %}
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star"></i>
-                <i class="bi bi-star"></i>
-                <i class="bi bi-star"></i>
-                {% elif comment.rank == 3 %}
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star"></i>
-                <i class="bi bi-star"></i>
-                {% elif comment.rank == 4 %}
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star"></i>
-                {% elif comment.rank == 5 %}
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
+          <div class="d-flex">
+            <div class="fs-6 fw-bold me-2">{{ comment.user }}</div>
+            <div class='d-inline-block write_ibm me-2'>{{ comment.content }} </div>
+              <li class="list-inline">
+                <div class='text-warning d-inline-block'>
+                  {% if comment.rank == 1 %} 
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star"></i>
+                  <i class="bi bi-star"></i>
+                  <i class="bi bi-star"></i>
+                  <i class="bi bi-star"></i>
+                  {% elif comment.rank == 2 %}
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star"></i>
+                  <i class="bi bi-star"></i>
+                  <i class="bi bi-star"></i>
+                  {% elif comment.rank == 3 %}
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star"></i>
+                  <i class="bi bi-star"></i>
+                  {% elif comment.rank == 4 %}
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star"></i>
+                  {% elif comment.rank == 5 %}
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  {% endif %}
+                </div>
+                
+                {% if user == comment.user %}
+                  <form action="{% url 'movies:comments_delete' movie.pk comment.pk %}" method="POST" class="d-inline">
+                    {% csrf_token %}
+                    <button class="btn btn-outline-danger btn-sm" style="border:none;">
+                      <i class="fas fa-trash-alt fa-sm"></i>
+                    </button>
+                  </form>
+                  <a href="{% url 'movies:comments_update' movie.pk comment.pk %}"><button  class="btn btn-outline-black btn-sm" style="border:none;"><i class="fa-solid fa-pen-to-square"></i></button></a>
+                  </form>
                 {% endif %}
-              </div>
-              <div class='d-inline-block write_ibm'>{{ comment.content }}         작성자: {{ comment.user }}</div>
-              {% if user == comment.user %}
-                <form action="{% url 'movies:comments_delete' movie.pk comment.pk %}" method="POST" class="d-inline">
-                  {% csrf_token %}
-                  <button class="btn btn-outline-danger btn-sm" style="border:none;">
-                    <i class="fas fa-trash-alt fa-sm"></i>
-                  </button>
-                </form>
-                <a href="{% url 'movies:comments_update' movie.pk comment.pk %}"><button  class="btn btn-outline-black btn-sm" style="border:none;"><i class="fa-solid fa-pen-to-square"></i></button></a>
-                </form>
-              {% endif %}
-            </li>
+              </li>
+          </div>
           {% empty %}
             <li class="list-inline">평점이 아직 없어요!</li>
           {% endfor %}
@@ -101,7 +105,7 @@
         
         <hr>
         {% if request.user.is_authenticated %}
-            <form class="write_ibm" action="{% url 'movies:comments_create' movie.pk %}" method="POST" class='row'>
+            <form class="write_ibm d-flex me-2" action="{% url 'movies:comments_create' movie.pk %}" method="POST" class='row'>
               {% csrf_token %}
               <div class='col-8 d-flex align-items-stretch'>{{ comment_form }}</div>
               <input type="submit" class='col-2' value='등록'>
