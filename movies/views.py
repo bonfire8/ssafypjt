@@ -28,7 +28,7 @@ def detail(request, movie_pk):
         'comment_form' : comment_form,
         'comments' : comments,
     }
-    return render(request, 'movies/detail.html', context)
+    return render(request, 'movies/detail2.html', context)
 
 def comments_create(request, movie_pk):
     if request.user.is_authenticated:
