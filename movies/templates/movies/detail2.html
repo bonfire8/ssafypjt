@@ -9,7 +9,7 @@
         <div>
             <form action="{% url 'movies:likes' movie.pk %}" method='POST'>
               {% csrf_token %}
-              <h3>{{ movie.like_users.all|length }} 명이 좋아합니다.
+              <h3 class="like_write">{{ movie.like_users.all|length }} 명이 좋아합니다.
               {% if user in movie.like_users.all %}
                 <button type="submit" style="border:none; background-color:transparent;">
                   <i class="fa-solid fa-heart" style='color:red'></i>
@@ -42,13 +42,13 @@
         </div>
 
         <hr>
-        <h4 class='d-inline'>평점 목록</h4>
+        <h4 class='d-inline like_write'>평점 목록</h4>
         {% if comments|length %}
           <p class='d-inline'>({{ comments|length }})</p>
         {% endif %}
-        <ul> 
+        <ul class="write_ibm"> 
           {% for comment in comments %}
-            <li>
+            <li class="list-inline">
               <div class='text-warning d-inline-block'>
                 {% if comment.rank == 1 %}★
                 {% elif comment.rank == 2 %}★★
@@ -70,19 +70,19 @@
               {% endif %}
             </li>
           {% empty %}
-            <li>평점이 아직 없어요!</li>
+            <li class="list-inline">평점이 아직 없어요!</li>
           {% endfor %}
         </ul>
         
         <hr>
         {% if request.user.is_authenticated %}
-            <form action="{% url 'movies:comments_create' movie.pk %}" method="POST" class='row'>
+            <form class="write_ibm" action="{% url 'movies:comments_create' movie.pk %}" method="POST" class='row'>
               {% csrf_token %}
               <div class='col-8 d-flex align-items-stretch'>{{ comment_form }}</div>
               <input type="submit" class='col-2' value='등록'>
             </form>
         {% else %}
-          <a href="{% url 'accounts:login' %}">[평점을 작성하려면 로그인하세요.]</a>
+          <a class='write_ibm' href="{% url 'accounts:login' %}">[평점을 작성하려면 로그인하세요.]</a>
         {% endif %}
 
       </div>
@@ -90,39 +90,3 @@
   </div>
 {% endblock %}
 
-
-
-{% comment %} 
-<script>
-  // 좋아요 기능
-  const forms = document.querySelectorAll('.like-form')
-  const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
-
-  forms.forEach(form => {
-    form.addEventListener('submit', function (event) {
-      event.preventDefault()
-      const movieId = event.target.dataset.movieId
-      console.log(movieId)
-      axios({
-        method: 'post',
-        url: `http://127.0.0.1:8000/movies/${movieId}/like/`,
-        headers: {'X-CSRFToken': csrftoken},
-      })
-        .then(response => {
-          console.log(response.data)
-          const liked = response.data.liked
-          const likeButton = document.querySelector(`#like-button-${movieId}`)
-          const count = response.data.count
-          likeButton.classList.toggle('btn-secondary')
-          likeButton.classList.toggle('btn-secondary')
-
-          if (liked === true) {
-            likeButton.innerText = '찜 목록에서 삭제'
-          } else {
-            likeButton.innerText = '찜 목록에 추가'
-          }
-        })
-    })
-  })
-
-</script> {% endcomment %}

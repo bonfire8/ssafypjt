@@ -8,7 +8,17 @@
     justify-content:center;
     align-items:center;
   }
-  
+
+.carousel-control-prev {
+  top:100px;
+  left: 60px;
+}
+
+.carousel-control-next {
+  top:100px;
+  right: 60px;
+}
+
 </style>
 
 <br>
@@ -22,14 +32,16 @@
       {% endfor %}
     </div>
   </div>
-  <button class="carousel-control-prev ms-5" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next me-5" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
+  <div class="d-flex align-items-center">
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev" style="height:30rem;">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next" style="height:30rem;">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
 </div>
 
 <div class="row">
