@@ -50,11 +50,36 @@
           {% for comment in comments %}
             <li class="list-inline">
               <div class='text-warning d-inline-block'>
-                {% if comment.rank == 1 %}★
-                {% elif comment.rank == 2 %}★★
-                {% elif comment.rank == 3 %}★★★
-                {% elif comment.rank == 4 %}★★★★
-                {% else %}★★★★★
+                {% if comment.rank == 1 %} 
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star"></i>
+                <i class="bi bi-star"></i>
+                <i class="bi bi-star"></i>
+                <i class="bi bi-star"></i>
+                {% elif comment.rank == 2 %}
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star"></i>
+                <i class="bi bi-star"></i>
+                <i class="bi bi-star"></i>
+                {% elif comment.rank == 3 %}
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star"></i>
+                <i class="bi bi-star"></i>
+                {% elif comment.rank == 4 %}
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star"></i>
+                {% elif comment.rank == 5 %}
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
                 {% endif %}
               </div>
               <div class='d-inline-block write_ibm'>{{ comment.content }}         작성자: {{ comment.user }}</div>
