@@ -48,7 +48,27 @@ def comments_delete(request, movie_pk, comment_pk):
         if request.user == comment.user:
             comment.delete()
     return redirect('movies:detail', movie_pk)
-
+def comments_update(request, movie_pk, comment_pk):
+    comment = get_object_or_404(MovieComment, pk=comment_pk)
+    if request.method == 'POST':
+        form = MovieCommentForm(request.POST, instance=comment)
+        print(form)
+        if form.is_valid():
+            print(comment)
+            comment = form.save()
+            print(comment)
+            return redirect('movies:detail', movie_pk)
+    else:
+        movie = Movie.objects.get(pk=movie_pk)
+        comment_form = MovieCommentForm(instance=comment)
+        comments=movie.moviecomment_set.all()
+    context = {
+        'movie' : movie,
+        'comment_form' : comment_form,
+        'comments' : comments,
+        'updatecomment' :  comment
+    }
+    return render(request, 'movies/detail3.html', context)
 def likes(request, movie_pk):
     if request.user.is_authenticated:
         movie = get_object_or_404(Movie, pk=movie_pk)
