@@ -6,7 +6,7 @@
     <div class='row'>
       <div class='box col-4 mb-4'>
         <img src="https://image.tmdb.org/t/p/w200{{movie.poster_path}}" style='height: 90%; width: 90%;' alt={{ movie.title}}>
-        <div>
+        <div class="like_write">
             <form action="{% url 'movies:likes' movie.pk %}" method='POST'>
               {% csrf_token %}
               <h3>{{ movie.like_users.all|length }} 명이 좋아합니다.
@@ -37,22 +37,49 @@
         </div>
 
         <hr>
-        <h4 class='d-inline'>평점 목록</h4>
+        <h4 class='d-inline like_write'>평점 목록</h4>
         {% if comments|length %}
           <p class='d-inline'>({{ comments|length }})</p>
         {% endif %}
         <ul> 
           {% for comment in comments %}
-            <li>
-              <div class='text-warning d-inline-block'>
-                {% if comment.rank == 1 %}★
-                {% elif comment.rank == 2 %}★★
-                {% elif comment.rank == 3 %}★★★
-                {% elif comment.rank == 4 %}★★★★
-                {% else %}★★★★★
+            <li class="list-inline d-flex">
+              <div class="me-2 write_ibm fs-6 fw-bold">{{ comment.user }} </div>
+              <div class='write_ibm me-2'>{{ comment.content }}</div>
+              <div class='text-warning d-inline-block me-2'>
+                {% if comment.rank == 1 %} 
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star"></i>
+                <i class="bi bi-star"></i>
+                <i class="bi bi-star"></i>
+                <i class="bi bi-star"></i>
+                {% elif comment.rank == 2 %}
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star"></i>
+                <i class="bi bi-star"></i>
+                <i class="bi bi-star"></i>
+                {% elif comment.rank == 3 %}
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star"></i>
+                <i class="bi bi-star"></i>
+                {% elif comment.rank == 4 %}
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star"></i>
+                {% elif comment.rank == 5 %}
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
                 {% endif %}
               </div>
-              <div class='d-inline-block write_ibm'>{{ comment.content }}         작성자: {{ comment.user }}</div>
+              
               {% if user == comment.user %}
                 <form action="{% url 'movies:comments_delete' movie.pk comment.pk %}" method="POST" class="d-inline">
                   {% csrf_token %}
@@ -63,7 +90,7 @@
               {% endif %}
             </li>
           {% empty %}
-            <li>평점이 아직 없어요!</li>
+            <li class="list-inline write_ibm">평점이 아직 없어요!</li>
           {% endfor %}
         </ul>
         
@@ -75,7 +102,7 @@
               <input type="submit" class='btn btn-outline-black col-2' value='등록'>
             </form>
         {% else %}
-          <a href="{% url 'accounts:login' %}">[평점을 작성하려면 로그인하세요.]</a>
+          <a class="write_ibm" href="{% url 'accounts:login' %}">[평점을 작성하려면 로그인하세요.]</a>
         {% endif %}
 
       </div>
