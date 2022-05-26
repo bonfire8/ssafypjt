@@ -27,7 +27,7 @@
   <div id="carouselExampleControls" style="width:20rem; height:25rem;" class="carousel slide d-flex justify-content-center align-items-center" data-bs-ride="carousel" >
     <div class="carousel-inner">
       {% for movie in movies %}    
-      <div class="carousel-item {% if forloop.counter == 1 %} active {% endif %}">
+      <div class="carousel-item {% if forloop.counter == 1 %} active {% endif %}" id="mouse-enter1">
         <img src="https://image.tmdb.org/t/p/w185/{{movie.poster_path}}" alt="header" class="d-block" style="width:20rem; height:25rem;">
       </div>
       {% endfor %}
@@ -88,23 +88,23 @@
               <div class="modal-body write_ibm">
               <img
                 src="https://image.tmdb.org/t/p/w780/{{movie.poster_path}}"
-                class="img-fluid"
+                class="img-fluid mb-2"
               />
                 {{movie.overview}}
               </div>
               <div class="modal-footer">
-                <a><button type="button" class="btn btn-outline-light mb-4" data-bs-dismiss="modal" style="background-color:#2084a8">닫기</button></a>
                 <a href="{% url 'movies:detail' movie.id %}">
-                  <button type="button" class="btn btn-outline-light mb-4" style="background-color:#2084a8">상세페이지</button>
+                  <button type="button" class="btn btn-outline-light mb-4 write_ibm" style="background-color:#2084a8">상세페이지</button>
                 </a>
                 <form class="like-form" data-movie-id="{{ movie.pk }}">
                   {% csrf_token %}
                   {% if user in movie.like_users.all %}
-                    <button id="like-button-{{ movie.pk }}" class='btn btn-outline-light mb-4' style="background-color:#2084a8">좋아요 취소</button>
+                  <button id="like-button-{{ movie.pk }}" class='btn btn-outline-light mb-4 write_ibm' style="background-color:#2084a8">좋아요 취소</button>
                   {% else %}
-                    <button id="like-button-{{ movie.pk }}" class='btn btn-outline-light mb-4' style="background-color:#2084a8">좋아요</button>
+                  <button id="like-button-{{ movie.pk }}" class='btn btn-outline-light mb-4 write_ibm' style="background-color:#2084a8">좋아요</button>
                   {% endif %}
                 </form> 
+                <a><button type="button" class="btn btn-outline-light mb-4 write_ibm" data-bs-dismiss="modal" style="background-color:#2084a8">닫기</button></a>
               </div>
             </div>
           </div>
@@ -134,7 +134,7 @@ const modalButtons = document.querySelectorAll('.d-none')
 //#mouseOver{{movie.id}} 일케잡음 안됫엇지!! 아아, 그리고 id말고 class로하니까잡히네..?뭐지
 //cnt 주면 글케잡아도될듯\
 // 아니죠 인덱스를 알아야죠 modalEnters의 각 인덱스
-
+const modalEnters1 = document.querySelectorAll('#mouse-enter1')
 const modalEnters = document.querySelectorAll('#mouse-enter')
 //호버되는 이미지말고 바깥 div바꿔주고 하는거 중요 체크 ㅇㅇ
 
@@ -144,6 +144,12 @@ modalEnters.forEach(function(element,index){
 
     modalButtons[index].click()// 오...미친 이 사용법이 되네연?
     })
+})
+modalEnters1.forEach(function(element,index){
+  element.addEventListener('click',function(){
+
+  modalButtons[index].click()// 오...미친 이 사용법이 되네연?
+  })
 })
 
 {% comment %} window.onload=function(){

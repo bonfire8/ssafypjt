@@ -45,10 +45,10 @@
             </div>
         </div>
         <div class="d-flex align-items-center">
-            <a href="{% url 'accounts:update' %}" class="text-decoration-none me-2" style='color: black'>회원정보수정</a>
+            <a href="{% url 'accounts:update' %}" class="text-decoration-none me-2 write_ibm" style='color: black'>회원정보수정</a>
             <form action="{% url 'accounts:delete' %}" method="POST">
                 {% csrf_token %}
-                <input type="submit" class="btn btn-secondary btn-sm" value="회원탈퇴">
+                <input type="submit" class="btn btn-secondary btn-sm write_ibm" value="회원탈퇴">
             </form>
         </div>
         {% endif %}
@@ -173,7 +173,7 @@
             <tbody>
                 {% for comment in person.comments.all %}
                 <tr>
-                    <td><a class='text-decoration-none' style="color:black" href='{% url 'community:detail' comment.pk %}'>{{ comment.content }}</a></td>
+                    <td><a class='text-decoration-none' style="color:black" href='{% url 'community:detail' comment.article_id %}'>{{ comment.content }}</a></td>
                     <td colspan="2" style='color:black'>{{comment.created_at}}</td>
                 </tr>
                 {% endfor %}

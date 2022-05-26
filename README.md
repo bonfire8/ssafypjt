@@ -34,7 +34,7 @@ Django 3.2.12
 | 5/23 | 평점 기능 구현하기                                       | 화면 계획하기, 추천 페이지 만들기                            | 추천 알고리즘 계획하기 / 알고리즘 구현하기(좋아요한 영화의 'overview'를 기준으로 코사인유사도를 이용한 추천 알고리즘) | 화면 계획하기 / 추천 알고리즘 계획, 구성하기     |
 | 5/24 | data 수정하기,  movie index 페이지 디자인                | profile 페이지 / recomment 페이지/ community index, detail 페이지 디자인 | 평점 기준의 추천 알고리즘 구현하기, ERD 수정, community / profile 기능 수정 | 추천 알고리즘 완성하기 / recommend 페이지 디자인 |
 | 5/25 | movie detail 페이지 디자인, movie comment 수정 기능 구현 | community 페이지 완성하기, movie index 페이지 디자인         |                                                              | movie 페이지 완성하기, community 페이지 완성하기 |
-| 5/26 | movie detail 페이지 완성                                 | movie index 페이지 완성                                      | README, PPT 작성                                             | 전체적인 디자인 맞추기 / README, PPT 완성하기    |
+| 5/26 | movie detail 페이지 완성                                 | movie index 페이지 완성                                      | 전체적인 디자인 완성 / README, PPT 작성                      | 전체적인 디자인 맞추기 / README, PPT 완성하기    |
 
 ### 2-1. URL 설정
 

@@ -1,12 +1,15 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h1>CREATE</h1>
+<br>
+  <h1 class="like_write">게시글 작성</h1>
   <hr>
-  <form action="{% url 'community:create' %}" method="POST">
+  <form class="write_ibm" action="{% url 'community:create' %}" method="POST">
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit">
+    <input type="submit" value="작성완료">
   </form>
-  <a href="{% url 'community:index' %}">back</a>
+  <br>
+  <i class="bi bi-house-fill"></i>
+  <a class="text-decoration-none" style="color:black" href="{% url 'movies:index' %}">HOME</a>
 {% endblock content %}

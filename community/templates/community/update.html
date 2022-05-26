@@ -1,12 +1,15 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h1>UPDATE</h1>
+<br>
+  <h1 class="like_write">게시글 수정</h1>
   <hr>
-  <form action="{% url 'community:update' article.pk %}" method="POST">
+  <form class="write_ibm" action="{% url 'community:update' article.pk %}" method="POST">
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit">
+    <input type="submit" value="수정완료">
   </form>
-  <a href="{% url 'community:detail' article.pk %}">back</a>
+  <br>
+  <i class="bi bi-house-fill"></i>
+  <a class="text-decoration-none" style="color:black" href="{% url 'movies:index' %}">HOME</a>
 {% endblock content %}

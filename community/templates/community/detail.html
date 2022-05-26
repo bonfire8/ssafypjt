@@ -24,9 +24,9 @@
   <br>
   <br>
   <div class="d-flex justify-content-end align-content-center">
-    <a style='color:black' class="text-decoration-none" href="{% url 'accounts:profile' article.user.username %}">{{article.user}}</a>
+    <a style='color:black' class="text-decoration-none write_ibm fw-bold" href="{% url 'accounts:profile' article.user.username %}">{{article.user}}</a>
     <h6 class='mx-2 mt-1'>/</h6>
-    <h6 class="mt-1">{{ article.created_at }}</h6>
+    <h6 class="write_ibm mt-1" >{{ article.created_at }}</h6>
   </div>
 </div>
 

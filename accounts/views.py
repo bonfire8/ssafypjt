@@ -12,6 +12,7 @@ from .forms import CustomUserChangeForm, CustomUserCreationForm
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.http import JsonResponse
 from movies.models import Movie
+from community.models import Article
 
 # Create your views here.
 @require_http_methods(['GET', 'POST'])
@@ -66,7 +67,7 @@ def update(request):
         form = CustomUserChangeForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
-            return redirect('movies:index')
+            return redirect('accounts:profile', request.user.username)
     else:
         form = CustomUserChangeForm(instance=request.user)
     context = {
