@@ -3,7 +3,7 @@
 <div class="container">
     <div class="d-flex mt-3">
         <i class="fs-3 fa-solid fa-heart me-2 mt-1" style="color:red"></i>
-        <h2 class='like_write'>좋아요 기준 추천 영화</h2>
+        <h2 class='like_write'>찜한 기준 추천 영화</h2>
     </div>
     <div>
         {% if movieList|length != 0 %}
@@ -18,7 +18,7 @@
             {% endfor %}
         </section>
         {% else %}
-        <p class="write_ibm">영화에 좋아요를 눌러주세요</p>
+        <p class="write_ibm">영화를 찜 해주세요</p>
         {% endif %}
     </div>
 

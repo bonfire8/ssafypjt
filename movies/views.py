@@ -8,6 +8,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from numpy.linalg import norm
 import numpy as np
 from django.http import HttpResponse, JsonResponse
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
@@ -91,6 +92,7 @@ def comments_update(request, movie_pk, comment_pk):
         'genres' : genre_lst,
     }
     return render(request, 'movies/detail3.html', context)
+    
 def likes(request, movie_pk):
     if request.user.is_authenticated:
         movie = get_object_or_404(Movie, pk=movie_pk)
@@ -100,6 +102,7 @@ def likes(request, movie_pk):
             movie.like_users.add(request.user)
         return redirect('movies:detail', movie_pk)
 
+@login_required
 def recommend(request, username):
     movies = Movie.objects.all()
     data = read_frame(movies)

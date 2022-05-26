@@ -109,8 +109,8 @@
 
                 <form class="write_ibm d-flex me-2" action="{% url 'movies:comments_update' movie.pk comment.pk %}" method="POST" class='row'>
                     {% csrf_token %}
-                    <div class='col-8 d-flex align-items-stretch'>{{ comment_form }}</div>
-                    <input type="submit" class='col-2' value='등록'>
+                    <div class='col-8 d-flex align-items-stretch me-4'>{{ comment_form }}</div>
+                    <input type="submit" class='col-1' value='등록'>
                     
                 </form>
               {% endif %}

@@ -106,8 +106,8 @@
         {% if request.user.is_authenticated %}
             <form class="write_ibm d-flex me-2" action="{% url 'movies:comments_create' movie.pk %}" method="POST" class='row'>
               {% csrf_token %}
-              <div class='col-8 d-flex align-items-stretch'>{{ comment_form }}</div>
-              <input type="submit" class='col-2' value='등록'>
+              <div class='col-8 d-flex align-items-stretch me-4'>{{ comment_form }}</div>
+              <input type="submit" class='col-1' value='등록'>
             </form>
         {% else %}
           <a class='write_ibm' href="{% url 'accounts:login' %}">[평점을 작성하려면 로그인하세요.]</a>

@@ -32,6 +32,7 @@ class MovieCommentForm(forms.ModelForm):
         label='',
         widget=forms.Textarea(
             attrs={
+                'class':'form-control',
                 'rows' : 1,
                 'placeholder': '한줄평을 작성해주세용!'
             }
