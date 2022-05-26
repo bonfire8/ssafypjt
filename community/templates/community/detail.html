@@ -10,11 +10,13 @@
   <div class="d-flex justify-content-between">
     <h2 class='fw-bold mx-2'>제목 : {{ article.title }}</h2>
     <div class="d-flex m-2">
+      {% if user == article.user  %}
       <a class='me-2 btn btn-secondary btn-sm' disabled href="{% url 'community:update' article.pk %}">수정</a>
       <form action="{% url 'community:delete' article.pk %}" method="POST">
         {% csrf_token %}
         <input class='btn btn-secondary btn-sm' type="submit" value="삭제">
       </form>
+      {% endif %}
     </div>
   </div>
   <hr>
