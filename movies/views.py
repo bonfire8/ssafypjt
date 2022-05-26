@@ -9,7 +9,10 @@ from numpy.linalg import norm
 import numpy as np
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
+<<<<<<< HEAD
 
+=======
+>>>>>>> 2babfceb75444465220d4dd278f808beba15784b
 
 # Create your views here.
 def movie_list(request):
@@ -92,7 +95,11 @@ def comments_update(request, movie_pk, comment_pk):
         'genres' : genre_lst,
     }
     return render(request, 'movies/detail3.html', context)
+<<<<<<< HEAD
     
+=======
+@login_required
+>>>>>>> 2babfceb75444465220d4dd278f808beba15784b
 def likes(request, movie_pk):
     if request.user.is_authenticated:
         movie = get_object_or_404(Movie, pk=movie_pk)
@@ -199,7 +206,7 @@ def recommend2(request, username):
         'movieList':movieList
     }
     return render(request, 'movies/recommend.html', context)
-
+@login_required
 def unlikes(request, movie_pk):
     if request.user.is_authenticated:
         movie = get_object_or_404(Movie, pk=movie_pk)

@@ -1,3 +1,7 @@
+
+
+
+
 # 최종 PJT - 사용자 기반 영화 추천 사이트
 
 ## ✨영화 '성도'의 주현배우 프로젝트✨
@@ -101,21 +105,24 @@ urlpatterns = [
 #### movies url.py
 ```python
 from django.urls import path
-
 from . import views
 
 app_name = 'movies'
 
 urlpatterns = [
-
-  # movies
+    # movies
     path('', views.movie_list, name='index'),
-	path('<int:movie_pk>/detail/', views.detail, name='detail'),
-	path('<int:movie_pk>/comments/', views.comments_create, 		name='comments_create'),
-	path('<int:movie_pk>/comments/<int:comment_pk>/delete/', views.comments_delete, name='comments_delete'),
-	path('<int:movie_pk>/likes/', views.likes, name='likes'),
+    path('<int:movie_pk>/detail/', views.detail, name='detail'),
+    path('<int:movie_pk>/comments/', views.comments_create, name='comments_create'),
+    path('<int:movie_pk>/comments/<int:comment_pk>/delete/', views.comments_delete, name='comments_delete'),
+    path('<int:movie_pk>/likes/', views.likes, name='likes'),
+    path('recommend/<username>/' ,views.recommend, name='recommend'),
+    path('<int:movie_pk>/unlikes/', views.unlikes, name='unlikes'),
+    path('<int:movie_pk>/comments/<int:comment_pk>/update/', views.comments_update, name='comments_update'),
+
 
 ]
+
 ```
 
 
@@ -164,3 +171,170 @@ urlpatterns = [
 
 ![erd.drawio](README.assets/erd.drawio.png)
 
+### 실제 구현 정도
+
+#### navbar
+
+![nav-그리드시스템](README.assets/nav-%EA%B7%B8%EB%A6%AC%EB%93%9C%EC%8B%9C%EC%8A%A4%ED%85%9C.png)
+
+- 그리드 시스템을 이용하여 반응형 웹으로 제작하였습니다
+
+![nav-login](README.assets/nav-login.png)
+
+- 로그인 전에는 로그인 기능과 회원가입 기능을 Nav바에서 보여주고 로그인 후에는 프로필 기능과 로그아웃 기능을 보여주게 하였습니다.
+
+#### 1. 로그인 회원가입 페이지
+
+#### 2. 영화 목록 페이지
+
+![index-carousel](README.assets/index-carousel.png)
+
+- 영화 목록페이지에서 사용자의 편의를 위해 버튼식으로 넘기면서 영화목록을 확인 할 수 있게끔 carousel을 이용하여 영화목록을 보여주었습니다.
+
+![carousel-click](README.assets/carousel-click.png)
+
+- 목록에서 원하는 영화 발견 시 모달 화면을 띄워줍니다.
+- __modal 기능__
+- 영화 제목, 포스터, 줄거리
+- 상세페이지, 좋아요, 닫기 기능
+
+![index](README.assets/index.png)
+
+- TMDB 영화데이터 200개를 보여줍니다.
+
+![index-click](README.assets/index-click.png)
+
+- 목록에서 원하는 영화 발견 시 모달 화면을 띄워줍니다.
+- __modal 기능__
+- 영화 제목, 포스터, 줄거리
+- 상세페이지, 좋아요, 닫기 기능
+
+![index-grid](README.assets/index-grid.png)
+
+- 또한 화면 크기에 맞게 그리드 시스템을 이용해 반응형 웹으로 제작하였습니다.
+
+#### 3. 영화 디테일 페이지
+- 영화 디테일 페이지에서는 영화의 상세정보를 보여줍니다.
+- __detaill 페이지 기능__
+- 좋아요 기능 (하트를 클릭하는 방식, 좋아요한 인원수도 출력)
+- 평점 기능(1점~5점 까지 평점 선택 방식, 본인이 작성한 평점만 삭제 or 수정 가능, 로그인 후 이용가능)
+
+![movie-detail-before](README.assets/movie-detail-before.png)
+
+- ![movie-detail-after](README.assets/movie-detail-after.png)
+
+
+
+#### 4. 커뮤니티 페이지
+
+![community](README.assets/community.png)
+
+- community 페이지 입니다.
+
+- community에는영화 정보와 관련된 소통을 할 수 있는 커뮤니티 기능을 구현했습니다.
+- 기본 페이지에는 모든 글의 제목과 작성자, 작성 시각과 좋아요 기능을 보여줬습니다.
+- 또한 추가 작성을 위한 create버튼을 보여 줍니다. 이 기능은 로그인 된 후에 가능합니다.
+- 작성글의 제목을 클릭하면 해당 작성글로 들어갈 수 있습니다.
+
+![article-detail](README.assets/article-detail.png)
+
+- 작성글 상세 페이지입니다. 
+- 작성글의 상세 내용과 댓글을 입력 할 수 있는 기능을 구현했습니다.
+- 또한 작성자는 수정과, 삭제를 할 수 있는 기능도 구현하였습니다.
+
+![article-detail-d](README.assets/article-detail-d.png)
+
+- 작성자가 아닐 시 수정, 삭제 기능이 보이지 않습니다. 
+- 댓글 역시 작성자만 삭제 할 수 있어 댓글 삭제 버튼이 보입니다.
+
+![article-create](README.assets/article-create.png)
+
+![article-update](README.assets/article-update.png)
+
+- 게시글은 다음과 같이 생성, 수정 할 수 있습니다.
+
+#### 5. 추천 페이지
+
+- 추천 알고리즘은 코사인 유사도를 이용한 추천 기능을 구현했습니다.
+
+- __코사인유사도__
+
+  - 두 벡터가 가르키는 방향이 얼마나 유사한가를 이용하여 벡터의 방향이 완전히 일치하면 1
+  - TF-IDF 행렬을 통해서 문서의 유사도를 구하는 경우 TF-IDF 행렬이 각각의 특징 벡터가 되어 코사인 유사도로 문서의 유사도를 파악
+  - 줄거리를 이용한 추천 알고리즘 구현
+
+- 좋아요한 영화와 평점을 입력한 영화를 이용하여 진행했습니다.
+
+- 좋아요는 좋아요한 영화 중 랜덤으로 골라 그 영화와 줄거리가 유사한 순서대로 5개의 영화를 추천해주는 방식입니다.
+
+- 평점은 입력한 평점중 평점이 가장 높은 영화들 중 랜덤으로 하나를 골라 그 영화와 줄거리가 유사한 순서대로 5개의 영화를 추천해 주는 방식입니다.
+
+  ![recommend-like](README.assets/recommend-like.png)
+
+  - 평점을 입력 안했을 시 평점을 입력해달라고 사용자에게 알려줍니다.
+
+  ![recommend-likestar](README.assets/recommend-likestar.png)
+
+  
+
+
+#### 6. 프로필 페이지
+
+- 프로필 페이지에서는 사용자가 입력한 영화에 대한 한줄평, 작성한 게시글, 게시글에 작성한 댓글, 좋아요한 게시글, 영화를 보여줍니다. 또한 사용자간의 팔로우 기능도 추가 하였습니다.  
+
+![profile1](README.assets/profile1.png)
+
+![profile2](README.assets/profile2.png)
+
+![profile3](README.assets/profile3.png)
+
+
+
+#### 느낀점
+
+__변성도__
+
+```
+저희는 백엔드와 프로트앤드를 나누지 않고 기능을 나눠서 진행했습니다.
+프로젝트를 진행하면서 서로가 두 부분을 다 하다 보니 서로가 아는 것을 공유해주면서
+진행할 수 있어서 아직 초보입장인 저희에게는 더 효율적인 방법이였지 않나 싶습니다.
+초기 기획에 시간을 많이 투자해도 고칠 부분이 있었습니다.
+완벽한 기획은 없을것이라는 생각을 하게되었고 그때 그때 고치면서 그래도 다음번에 할 실수를 
+미리 경험한거 같습니다. 
+기능을 구현하면 좀만 더 하면 더 좋은 기능이 될거 같다는 생각을 하게 되어 진짜 배움에는 끝이 
+없다는 것을 느꼈습니다. 특히 추천알고리즘을 구현할때 모델이 원하는 데이터를 DB에서 직접뽑아
+내면서 진행했던 과정이 제일 기억에 남습니다. 전체적인 과정을 돌아 볼 수 있어서 좋았고 이와 비
+슷한 토이 프로젝트를 한번더 해봐야겠다는 생각을 하게 되었습니다. 또한 일의 능률이 뛰어난 팀
+원을 만나 빨리 원하는 기능과 디자인을 구현할 수 있어서 너무 좋았습니다.
+```
+
+```
+백엔드 보다 프론트엔드가 어려웠습니다. 그리고 프론트엔드가 사실 사용자가 접하는 곳이
+기 때문에 어떻게 하면 더 이쁠까 하는 욕심이 자꾸 들었는데 잘 해내지 못해 너무 아쉽
+고 어려웠습니다. 
+그래도 주현님이 잘해주셔서 이쁘고 만족할 만한 페이지가 나온거 같습니다.
+
+```
+
+
+__진주현__
+
+```
+처음 기획했던 것과 많은 것이 달라지진 않았지만 그래도 아이디어를 계속  추가하다보니
+모델을 수정하게 되는 경우가 많았습니다.
+처음부터 확실하게 정해놓고 가면 좋았겠지만 구현을 하면 할수록 이 기능이 있으면 좋겠
+다라는 생각에 욕심을 부렸던 것 같습니다.
+역할을 잘 정해 분업이 잘 되었고 개인의 기량들이 어느정도 있어 서로에게 부족한 부분을
+채워주니 실제 완성까지 오래걸리진 않았습니다.
+프로젝트를 진행한 일주일동안 팀장님과 잘 맞아서 큰 트러블 없이 무사히 마쳤습니다.
+```
+```
+기능을 구현하는 것보다는 디자인 부분에서 어려웠던 점이 많았습니다. 처음에는 기본만
+하자!라는 생각이 하다보니 욕심이 생겨 디자인까지 잘하고 싶었습니다. 그래서 CSS에 대
+해 공부를 많이 했습니다.
+가장 어려웠던 부분은 carousel을 만드는 부분이었습니다. 기본 구조를 수정하고 싶어
+이것저것 손을 대다 원하는 모양의 carousel을 구현하기 힘들었습니다.
+그래서 처음부터 다시 시작하자는 생각으로 새로 구현하니 원하는 디자인이 나왔습니다.
+디자인의 길은 다양하고도 넓다고 생각했습니다. 
+보여지는 부분도 매우 중요하다고 생각해 앞으로 공부를 많이 해야겠다고 느꼈습니다
+```
